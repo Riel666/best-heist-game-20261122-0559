@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Gilded Vault — Midnight Heist</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  body {
+    margin: 0; background: #0b0f16; color: #e8e4d8;
+    font-family: Georgia, 'Times New Roman', serif;
+    display: flex; flex-direction: column; align-items: center;
+    min-height: 100vh;
+  }
+  #topbar {
+    width: 960px; display: flex; justify-content: space-between; align-items: center;
+    padding: 10px 4px 6px; font-size: 15px;
+  }
+  #levelName { font-size: 19px; letter-spacing: 1px; color: #d4af37; }
+  #score, #loot, #tools { font-family: monospace; font-size: 14px; }
+  #alertRow { width: 960px; display: flex; align-items: center; gap: 10px; padding: 0 4px 6px; }
+  #alertLabel { font-family: monospace; font-size: 14px; width: 90px; color: #ffb84d; }
+  #alertBar { flex: 1; height: 14px; background: #1a2233; border: 1px solid #3a4358; border-radius: 3px; overflow: hidden; }
+  #alertFill {
+    display: block;
+    height: 100%; width: 0%;
+    background: #58d68d;
+    transition: width 0.12s linear;
+  }
+  #vanTimer { font-family: monospace; font-size: 15px; color: #ffd94d; min-width: 90px; text-align: right; }
+  #wrap { position: relative; width: 960px; height: 640px; }
+  canvas { display: block; width: 960px; height: 640px; background: #202839; }
+  #message {
+    width: 960px; min-height: 22px; padding: 6px 4px; font-style: italic;
+    color: #cfe8ff; font-size: 15px;
+  }
+  #levelDots { color: #d4af37; letter-spacing: 4px; font-size: 15px; }
+  #help { width: 960px; padding: 4px; font-size: 13px; color: #9aa7bd; font-family: monospace; }
+  #overlay {
+    position: absolute; inset: 0; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; text-align: center;
+    background: rgba(5, 8, 14, 0.82); z-index: 10; padding: 0 60px;
+  }
+  #overlay.hidden { display: none; }
+  #overlayTitle { font-size: 44px; letter-spacing: 4px; color: #d4af37; margin: 0 0 14px; }
+  #overlayBody { font-size: 18px; line-height: 1.5; max-width: 640px; }
+  #overlayHint { margin-top: 22px; font-family: monospace; font-size: 14px; color: #9aa7bd; }
+  #overlay button {
+    margin-top: 22px; padding: 10px 26px; font-size: 16px; cursor: pointer;
+    background: #d4af37; color: #14100a; border: none; border-radius: 4px;
+    font-family: Georgia, serif; letter-spacing: 1px;
+  }
+</style>
+</head>
+<body>
+  <div id="topbar">
+    <span id="levelName">Floor 1 — The Lobby</span>
+    <span id="score">Score 0</span>
+    <span id="loot">Loot 0 bags</span>
+    <span id="tools">EMP 1 · Smoke 1 · Coins 3</span>
+  </div>
+  <div id="alertRow">
+    <span id="alertLabel">Alert 0%</span>
+    <div id="alertBar"><span id="alertFill"></span></div>
+    <span id="vanTimer"></span>
+  </div>
+  <div id="wrap">
+    <canvas id="game" width="960" height="640"></canvas>
+    <div id="overlay">
+      <h1 id="overlayTitle">GILDED VAULT</h1>
+      <p id="overlayBody">Midnight at the Meridian Bank. Three floors stand between you and the
+      vault gold — guards on patrol, cameras sweeping, lasers humming. Lift the
+      gold, then reach the van before your driver leaves without you.</p>
+      <p id="overlayHint">WASD / arrows to move · click to walk · Shift to sneak<br>
+      1 EMP · 2 smoke · 3 / right-click coin toss · E (hold) hack · Q drop a bag</p>
+      <button id="startBtn" type="button">START THE HEIST</button>
+    </div>
+  </div>
+  <div id="message"></div>
+  <div id="help"><span id="levelDots">◉ ○ ○</span> &nbsp; R retry floor · M sound · grab the vault gold first — the van only waits so long.</div>
+  <script type="module" src="./src/main.js"></script>
+</body>
+</html>
